@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="LeagueHashes.Views.RSTPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="RST" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{x:Bind ViewModel.Offset, Mode=TwoWay}" PlaceholderText="Offset"/>
+                <ComboBox PlaceholderText="Bit" Grid.Column="2" ItemsSource="{x:Bind ViewModel.Bits}" SelectedItem="{x:Bind ViewModel.Bit, Mode=TwoWay}"/>
+            </Grid>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.Input, Mode=TwoWay}" PlaceholderText="Enter the string you want to evaluate here."/>
+            <Button Content="Generate" HorizontalAlignment="Center" Command="{x:Bind ViewModel.OnComputedHash}" Grid.Row="5" Grid.Column="1"/>
+            <TextBox Grid.Row="7" Grid.Column="1"  Text="{x:Bind ViewModel.Output, Mode=OneWay}" PlaceholderText="The output will be displayed here."/>
+            <CheckBox Grid.Row="7" Grid.Column="3" IsChecked="{x:Bind ViewModel.IsHex, Mode=TwoWay}" Content="Hex"/>
+        </Grid>
+    </Grid>
+</Page>
