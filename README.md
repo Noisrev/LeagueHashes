@@ -1,5 +1,5 @@
-# LeagueHashes
-![LeagueHashes (2) (2)](https://user-images.githubusercontent.com/62750690/122947803-057fda00-d3ad-11eb-9bc6-433ac993e0d3.png)
+# ![Square44x44Logo altform-unplated_targetsize-48](https://user-images.githubusercontent.com/62750690/122948356-70311580-d3ad-11eb-8aae-8c78d3bc102a.png)    LeagueHashes
+
 Hash Tool
 
 `FNV-1`
@@ -7,7 +7,6 @@ Hash Tool
 `ELF`
 `RST`
 `SDBM`
-
 `Troy`
 `Color`
 `CCITT32`
