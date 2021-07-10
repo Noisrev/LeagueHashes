@@ -53,7 +53,7 @@
                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
-            <Grid>
+            <Grid Margin="0,-1,0,0">
                 <Frame x:Name="shellFrame" />
                 <NavigationViewItem Icon="List" Tapped="NavigationViewItem_Tapped" HorizontalAlignment="Right" VerticalAlignment="Top">
                     <FlyoutBase.AttachedFlyout>
