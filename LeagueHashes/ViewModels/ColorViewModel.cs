@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Windows.UI;
 
 namespace LeagueHashes.ViewModels

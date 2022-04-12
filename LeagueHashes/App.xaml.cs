@@ -17,6 +17,7 @@ namespace LeagueHashes
         public App()
         {
             InitializeComponent();
+
             UnhandledException += OnAppUnhandledException;
 
             // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.
@@ -28,7 +29,7 @@ namespace LeagueHashes
             if (!args.PrelaunchActivated)
             {
                 await ActivationService.ActivateAsync(args);
-                ExtendAcrylicIntoTitleBar();
+                ExtendIntoTitleBar();
             }
         }
 
@@ -52,12 +53,16 @@ namespace LeagueHashes
         {
             return new Views.ShellPage();
         }
-        private void ExtendAcrylicIntoTitleBar()
+        private void ExtendIntoTitleBar()
         {
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size(800d, 320d);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
         }
     }
 }

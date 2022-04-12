@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.223
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueHashes", "LeagueHashes\LeagueHashes.csproj", "{FDB00ED5-1595-4D71-873D-59931FF9E757}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeagueHashes.Core", "LeagueHashes.Core\LeagueHashes.Core.csproj", "{2C7B0E49-3BD5-48B5-8489-809B04987636}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,26 +45,6 @@ Global
 		{FDB00ED5-1595-4D71-873D-59931FF9E757}.Release|x86.ActiveCfg = Release|x86
 		{FDB00ED5-1595-4D71-873D-59931FF9E757}.Release|x86.Build.0 = Release|x86
 		{FDB00ED5-1595-4D71-873D-59931FF9E757}.Release|x86.Deploy.0 = Release|x86
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|ARM.Build.0 = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|x64.Build.0 = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Debug|x86.Build.0 = Debug|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|ARM.ActiveCfg = Release|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|ARM.Build.0 = Release|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|ARM64.Build.0 = Release|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|x64.ActiveCfg = Release|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|x64.Build.0 = Release|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|x86.ActiveCfg = Release|Any CPU
-		{2C7B0E49-3BD5-48B5-8489-809B04987636}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

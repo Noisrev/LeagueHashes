@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
 
-namespace LeagueHashes.Core.Helpers
+namespace LeagueHashes.Helpers
 {
     public static class Json
     {

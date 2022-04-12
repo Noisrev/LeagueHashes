@@ -1,4 +1,4 @@
-﻿using LeagueHashes.Core.Models;
+﻿using LeagueHashes.Services;
 using LeagueHashes.ViewModels;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
@@ -47,12 +47,7 @@ namespace LeagueHashes.Views
         {
             if (sender is MenuFlyoutItem item && item.DataContext is HistoryEntry historyEntry)
             {
-                ViewModel.History.Remove(historyEntry);
-                if (ViewModel.History.Count == 0)
-                {
-                    ViewModel.HistoryViewVisibility = Visibility.Collapsed;
-                    ViewModel.NoHistoricalContentPromptsVisibility = Visibility.Visible;
-                }
+                ViewModel.RemoveHistory(historyEntry);
             }
         }
     }

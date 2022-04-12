@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Data;
 
-namespace LeagueHashes.Helpers
+namespace LeagueHashes.Converters
 {
     public class EnumToBooleanConverter : IValueConverter
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
-namespace LeagueHashes.Core.Helpers
+namespace LeagueHashes.Helpers
 {
     public static class Singleton<T>
         where T : new()

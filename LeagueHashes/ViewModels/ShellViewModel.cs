@@ -1,5 +1,4 @@
-﻿using LeagueHashes.Core.Models;
-using LeagueHashes.Helpers;
+﻿using LeagueHashes.Helpers;
 using LeagueHashes.Services;
 using LeagueHashes.Views;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -26,7 +25,7 @@ namespace LeagueHashes.ViewModels
             get => __history;
             set => SetProperty(ref __history, value, nameof(History));
         }
-        private ObservableCollection<HistoryEntry> __history = new ObservableCollection<HistoryEntry>();
+        private ObservableCollection<HistoryEntry> __history;
         public Visibility HistoryViewVisibility
         {
             get => __historyViewVisibility;
@@ -60,7 +59,7 @@ namespace LeagueHashes.ViewModels
         public WinUI.NavigationViewItem Selected
         {
             get => _selected;
-            set => SetProperty(ref _selected, value);
+            set => SetProperty(ref _selected, value, nameof(Selected));
         }
 
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
@@ -69,15 +68,6 @@ namespace LeagueHashes.ViewModels
 
         public ShellViewModel()
         {
-            HistoryHelper.AddHistory = new Action<HistoryEntry>((entry) =>
-            {
-                History.Add(entry);
-                if (NoHistoricalContentPromptsVisibility == Visibility.Visible)
-                {
-                    HistoryViewVisibility = Visibility.Visible;
-                    NoHistoricalContentPromptsVisibility = Visibility.Collapsed;
-                }
-            });
         }
 
         public void Initialize(Frame frame, WinUI.NavigationView navigationView, IList<KeyboardAccelerator> keyboardAccelerators)
@@ -96,6 +86,10 @@ namespace LeagueHashes.ViewModels
             // More info on tracking issue https://github.com/Microsoft/microsoft-ui-xaml/issues/8
             _keyboardAccelerators.Add(_altLeftKeyboardAccelerator);
             _keyboardAccelerators.Add(_backKeyboardAccelerator);
+
+            History = await HistoryService.InitializedAsync();
+            History.CollectionChanged += History_CollectionChanged;
+            VerifyAndUpdateHistoryView();
             await Task.CompletedTask;
         }
 
@@ -184,6 +178,33 @@ namespace LeagueHashes.ViewModels
         {
             bool result = NavigationService.GoBack();
             args.Handled = result;
+        }
+
+        private async void History_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            VerifyAndUpdateHistoryView();
+
+            await HistoryService.SaveAsync();
+        }
+
+        private void VerifyAndUpdateHistoryView()
+        {
+            if (History.Count > 0)
+            {
+                HistoryViewVisibility = Visibility.Visible;
+                NoHistoricalContentPromptsVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                HistoryViewVisibility = Visibility.Collapsed;
+                NoHistoricalContentPromptsVisibility = Visibility.Visible;
+            }
+        }
+
+        public void RemoveHistory(HistoryEntry entry)
+        {
+            History.Remove(entry);
+            VerifyAndUpdateHistoryView();
         }
     }
 }

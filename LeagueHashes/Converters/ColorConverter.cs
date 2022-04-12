@@ -1,9 +1,9 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace LeagueHashes.Converter
+namespace LeagueHashes.Converters
 {
-    public class ColorConvert : IValueConverter
+    public class ColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

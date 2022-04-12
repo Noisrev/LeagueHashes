@@ -1,4 +1,4 @@
-﻿using LeagueHashes.Helpers;
+﻿using LeagueHashes.Services;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace LeagueHashes.ViewModels
@@ -62,7 +62,7 @@ namespace LeagueHashes.ViewModels
             Output_Dec = Hash.ToString();
             Output_Hex = Hash.ToString("X");
             OnChangedText();
-            HistoryHelper.AddHistory(new Core.Models.HistoryEntry(Core.Models.HistoryType.Troy, $"[{key.Section}, {key.Property}] {(IsHex ? Output_Hex : Output_Dec)}"));
+            HistoryService.AddHistory(new HistoryEntry(HistoryType.Troy, $"[{key.Section}, {key.Property}] {(IsHex ? Output_Hex : Output_Dec)}"));
         }
     }
 }

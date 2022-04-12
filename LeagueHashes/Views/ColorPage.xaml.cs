@@ -1,5 +1,4 @@
-﻿
-using LeagueHashes.Helpers;
+﻿using LeagueHashes.Services;
 using LeagueHashes.ViewModels;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -83,7 +82,7 @@ namespace LeagueHashes.Views
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            HistoryHelper.AddHistory(new Core.Models.HistoryEntry(Core.Models.HistoryType.Color, $"{ViewModel.AutoColor.R / (float)255}, {ViewModel.AutoColor.G / (float)255}, {ViewModel.AutoColor.B / (float)255}, {ViewModel.AutoColor.A / (float)255}", new Windows.UI.Xaml.Media.SolidColorBrush(ViewModel.AutoColor)));
+            HistoryService.AddHistory(new HistoryEntry(HistoryType.Color, $"{ViewModel.AutoColor.R / (float)255}, {ViewModel.AutoColor.G / (float)255}, {ViewModel.AutoColor.B / (float)255}, {ViewModel.AutoColor.A / (float)255}", ViewModel.AutoColor));
         }
     }
 }

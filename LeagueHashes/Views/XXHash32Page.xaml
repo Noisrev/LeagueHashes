@@ -4,31 +4,55 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea">
-        <TextBlock Text="XXHash32" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15"/>
+        <TextBlock
+            Margin="15"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="XXHash32" />
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="15"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="15"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Input, Mode=TwoWay}" PlaceholderText="Enter the string you want to evaluate here."/>
-            <Button Content="Generate" HorizontalAlignment="Center" Command="{x:Bind ViewModel.OnComputedHash}" Grid.Row="3" Grid.Column="1"/>
-            <TextBox Grid.Row="5" Grid.Column="1"  Text="{x:Bind ViewModel.Output, Mode=OneWay}" PlaceholderText="The output will be displayed here."/>
-            <CheckBox Grid.Row="5" Grid.Column="3" IsChecked="{x:Bind ViewModel.IsHex, Mode=TwoWay}" Content="Hex"/>
-            <CheckBox Grid.Row="1" Grid.Column="3" IsChecked="{x:Bind ViewModel.ToLower, Mode=TwoWay}" Content="ToLower"/>
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                PlaceholderText="Enter the string you want to evaluate here."
+                Text="{x:Bind ViewModel.Input, Mode=TwoWay}" />
+            <Button
+                Grid.Row="3"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                Command="{x:Bind ViewModel.OnComputedHash}"
+                Content="Generate" />
+            <TextBox
+                Grid.Row="5"
+                Grid.Column="1"
+                PlaceholderText="The output will be displayed here."
+                Text="{x:Bind ViewModel.Output, Mode=OneWay}" />
+            <CheckBox
+                Grid.Row="5"
+                Grid.Column="3"
+                Content="Hex"
+                IsChecked="{x:Bind ViewModel.IsHex, Mode=TwoWay}" />
+            <CheckBox
+                Grid.Row="1"
+                Grid.Column="3"
+                Content="ToLower"
+                IsChecked="{x:Bind ViewModel.ToLower, Mode=TwoWay}" />
         </Grid>
     </Grid>
 </Page>

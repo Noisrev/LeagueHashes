@@ -2,18 +2,21 @@
     x:Class="LeagueHashes.Views.ShellPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:behaviors="using:LeagueHashes.Behaviors"
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:converters="using:LeagueHashes.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:LeagueHashes.Helpers"
-    xmlns:views="using:LeagueHashes.Views"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:his="using:LeagueHashes.Core.Models"
-    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
-    
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:LeagueHashes.Views"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converters:ColorToSolidBrushColorConverter x:Key="ColorToSolidBrushColorConverter" />
+        <converters:TitleConverter x:Key="TitleConverter" />
+    </Page.Resources>
 
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
@@ -22,71 +25,99 @@
     </i:Interaction.Behaviors>
 
     <Grid>
-        <winui:NavigationView PaneDisplayMode="Top"
-        x:Name="navigationView"
-        IsBackButtonVisible="Visible"
-        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
-        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True"
-        
-        Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+        <winui:NavigationView
+            x:Name="navigationView"
+            IsBackButtonVisible="Visible"
+            IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+            IsSettingsVisible="True"
+            IsTitleBarAutoPaddingEnabled="True"
+            PaneDisplayMode="Top"
+            SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
             <winui:NavigationView.MenuItems>
                 <!--
-            TODO WTS: Change the symbols for each item as appropriate for your app
-            More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
-            Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/release/docs/UWP/projectTypes/navigationpane.md
-            Edit String/en-US/Resources.resw: Add a menu item title for each page
-            -->
-                <winui:NavigationViewItem x:Uid="Shell_Fnv32"    helpers:NavHelper.NavigateTo="views:Fnv32Page" />
-                <winui:NavigationViewItem x:Uid="Shell_FNV32a"   helpers:NavHelper.NavigateTo="views:Fnv32aPage"/>
-                <winui:NavigationViewItem x:Uid="Shell_ELF"      helpers:NavHelper.NavigateTo="views:ELFPage" />
-                <winui:NavigationViewItem x:Uid="Shell_RST"      helpers:NavHelper.NavigateTo="views:RSTPage" />
-                <winui:NavigationViewItem x:Uid="Shell_SDBM"      helpers:NavHelper.NavigateTo="views:SDBMPage" />
-                <winui:NavigationViewItem x:Uid="Shell_Troy"     helpers:NavHelper.NavigateTo="views:TroyPage" />
-                <winui:NavigationViewItem x:Uid="Shell_Color"    helpers:NavHelper.NavigateTo="views:ColorPage" />
-                <winui:NavigationViewItem x:Uid="Shell_CCITT32"   helpers:NavHelper.NavigateTo="views:CCITT32Page"/>
-                <winui:NavigationViewItem x:Uid="Shell_XXHash32" helpers:NavHelper.NavigateTo="views:XXHash32Page"/>
-                <winui:NavigationViewItem x:Uid="Shell_XXHash64" helpers:NavHelper.NavigateTo="views:XXHash64Page"/>
+                    TODO WTS: Change the symbols for each item as appropriate for your app
+                    More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
+                    Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/release/docs/UWP/projectTypes/navigationpane.md
+                    Edit String/en-US/Resources.resw: Add a menu item title for each page
+                -->
+                <winui:NavigationViewItem x:Uid="Shell_Fnv32" helpers:NavHelper.NavigateTo="views:Fnv32Page" />
+                <winui:NavigationViewItem x:Uid="Shell_FNV32a" helpers:NavHelper.NavigateTo="views:Fnv32aPage" />
+                <winui:NavigationViewItem x:Uid="Shell_ELF" helpers:NavHelper.NavigateTo="views:ELFPage" />
+                <winui:NavigationViewItem x:Uid="Shell_RST" helpers:NavHelper.NavigateTo="views:RSTPage" />
+                <winui:NavigationViewItem x:Uid="Shell_SDBM" helpers:NavHelper.NavigateTo="views:SDBMPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Troy" helpers:NavHelper.NavigateTo="views:TroyPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Color" helpers:NavHelper.NavigateTo="views:ColorPage" />
+                <winui:NavigationViewItem x:Uid="Shell_CCITT32" helpers:NavHelper.NavigateTo="views:CCITT32Page" />
+                <winui:NavigationViewItem x:Uid="Shell_XXHash32" helpers:NavHelper.NavigateTo="views:XXHash32Page" />
+                <winui:NavigationViewItem x:Uid="Shell_XXHash64" helpers:NavHelper.NavigateTo="views:XXHash64Page" />
             </winui:NavigationView.MenuItems>
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="ItemInvoked">
                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
-            <Grid Margin="0,-1,0,0">
+            <Grid>
                 <Frame x:Name="shellFrame" />
-                <NavigationViewItem Icon="List" Tapped="NavigationViewItem_Tapped" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <NavigationViewItem
+                    Margin="0,0,-2,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Icon="List"
+                    Tapped="NavigationViewItem_Tapped">
                     <FlyoutBase.AttachedFlyout>
                         <Flyout Placement="Bottom">
                             <Grid>
                                 <Grid Visibility="{x:Bind ViewModel.HistoryViewVisibility, Mode=TwoWay}">
                                     <Grid.Transitions>
                                         <TransitionCollection>
-                                            <EntranceThemeTransition/>
+                                            <EntranceThemeTransition />
                                         </TransitionCollection>
                                     </Grid.Transitions>
-                                    <ListView ItemsSource="{x:Bind ViewModel.History}">
+                                    <ListView ItemsSource="{x:Bind ViewModel.History, Mode=TwoWay}" ScrollViewer.CanContentRenderOutsideBounds="True">
+                                        <ListView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <ItemsStackPanel />
+                                            </ItemsPanelTemplate>
+                                        </ListView.ItemsPanel>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid RightTapped="Grid_RightTapped">
                                                     <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto"/>
-                                                        <RowDefinition Height="5"/>
-                                                        <RowDefinition Height="Auto"/>
-                                                        <RowDefinition Height="5"/>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="5" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="5" />
                                                     </Grid.RowDefinitions>
-                                                    <TextBlock x:Name="header" Grid.Row="0" FontSize="16" FontStretch="Undefined" FontWeight="Bold" Text="{Binding Type}"/>
-                                                    <TextBlock Opacity="0.7" Grid.Row="2" Text="{Binding Text}"/>
+                                                    <TextBlock
+                                                        x:Name="header"
+                                                        Grid.Row="0"
+                                                        FontSize="16"
+                                                        FontStretch="Undefined"
+                                                        FontWeight="Bold"
+                                                        Text="{Binding Type}" />
+                                                    <TextBlock
+                                                        Grid.Row="2"
+                                                        Opacity="0.7"
+                                                        Text="{Binding Text}" />
 
                                                     <FlyoutBase.AttachedFlyout>
                                                         <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                                            <MenuFlyoutItem Text="Copy" Icon="Copy" Click="Copy_Click"/>
-                                                            <MenuFlyoutItem Text="Delete" Icon="Delete" Click="Delete_Click"/>
+                                                            <MenuFlyoutItem
+                                                                Click="Copy_Click"
+                                                                Icon="Copy"
+                                                                Text="Copy" />
+                                                            <MenuFlyoutItem
+                                                                Click="Delete_Click"
+                                                                Icon="Delete"
+                                                                Text="Delete" />
                                                         </MenuFlyout>
                                                     </FlyoutBase.AttachedFlyout>
                                                     <i:Interaction.Behaviors>
                                                         <ic:DataTriggerBehavior Binding="{Binding HasColor}" Value="True">
-                                                            <ic:ChangePropertyAction TargetObject="{Binding ElementName=header}" PropertyName="Foreground" Value="{Binding SolidColor}" />
+                                                            <ic:ChangePropertyAction
+                                                                PropertyName="Foreground"
+                                                                TargetObject="{Binding ElementName=header}"
+                                                                Value="{Binding Color, Converter={StaticResource ColorToSolidBrushColorConverter}}" />
                                                         </ic:DataTriggerBehavior>
                                                     </i:Interaction.Behaviors>
                                                 </Grid>
@@ -97,16 +128,19 @@
                                 <Grid Visibility="{x:Bind ViewModel.NoHistoricalContentPromptsVisibility, Mode=TwoWay}">
                                     <Grid.Transitions>
                                         <TransitionCollection>
-                                            <EntranceThemeTransition/>
+                                            <EntranceThemeTransition />
                                         </TransitionCollection>
                                     </Grid.Transitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="5"/>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="5" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="😮" HorizontalAlignment="Center"/>
-                                    <TextBlock Grid.Row="2" Text="There is no history at the moment."/>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        HorizontalAlignment="Center"
+                                        Text="😮" />
+                                    <TextBlock Grid.Row="2" Text="There is no history at the moment." />
                                 </Grid>
                             </Grid>
                         </Flyout>
@@ -114,6 +148,16 @@
                 </NavigationViewItem>
             </Grid>
         </winui:NavigationView>
-
+        <StackPanel
+            Height="32"
+            Margin="8,4"
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
+            <winui:ImageIcon VerticalAlignment="Center" Source="/Assets/SmallTile.scale-200.png" />
+            <TextBlock
+                Margin="0,0,0,2"
+                VerticalAlignment="Center"
+                Text="{x:Bind ViewModel.Selected, Mode=TwoWay, Converter={StaticResource TitleConverter}}" />
+        </StackPanel>
     </Grid>
 </Page>

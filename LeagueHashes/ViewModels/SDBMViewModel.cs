@@ -1,4 +1,4 @@
-﻿using LeagueHashes.Helpers;
+﻿using LeagueHashes.Services;
 
 namespace LeagueHashes.ViewModels
 {
@@ -39,7 +39,7 @@ namespace LeagueHashes.ViewModels
             Output_Dec = Hash.ToString();
             Output_Hex = Hash.ToString("X");
             OnChangedText();
-            HistoryHelper.AddHistory(new Core.Models.HistoryEntry(Core.Models.HistoryType.SDBM, $"{key} {(IsHex ? Output_Hex : Output_Dec)}"));
+            HistoryService.AddHistory(new HistoryEntry(HistoryType.SDBM, $"{key} {(IsHex ? Output_Hex : Output_Dec)}"));
         }
     }
 }

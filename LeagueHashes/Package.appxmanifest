@@ -9,8 +9,8 @@
 
   <Identity
     Name="79696F6C-BC98-46DB-8322-E30AF06B4D64"
-    Publisher="CN=Noisr"
-    Version="1.3.0.0" />
+    Publisher="CN=Noisrev"
+    Version="1.4.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="79696F6C-BC98-46DB-8322-E30AF06B4D64" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
