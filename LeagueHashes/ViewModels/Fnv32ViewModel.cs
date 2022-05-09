@@ -18,8 +18,8 @@ namespace LeagueHashes.ViewModels
             }
             for (int i = 0; i < s.Length; i++)
             {
-                hash ^= s[i];
                 hash *= 16777619;
+                hash ^= s[i];
             }
             Submit(s, hash);
         }

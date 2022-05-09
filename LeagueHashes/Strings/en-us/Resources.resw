@@ -170,12 +170,12 @@
     <comment>Navigation view item name for CCITT32</comment>
   </data>
   <data name="Shell_Fnv32.Content" xml:space="preserve">
-    <value>Fnv32</value>
-    <comment>Navigation view item name for Fnv32</comment>
+    <value>FNV-1</value>
+    <comment>Navigation view item name for FNV-1</comment>
   </data>
   <data name="Shell_Fnv32a.Content" xml:space="preserve">
-    <value>Fnv32a</value>
-    <comment>Navigation view item name for Fnv32a</comment>
+    <value>FNV-1a</value>
+    <comment>Navigation view item name for FNV-1a</comment>
   </data>
   <data name="Shell_ELF.Content" xml:space="preserve">
     <value>ELF</value>
