@@ -1,6 +1,7 @@
 ﻿using LeagueHashes.Helpers;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI;
@@ -10,8 +11,24 @@ namespace LeagueHashes.Services
     public static class HistoryService
     {
         private const string HistoryFileName = ".history";
-        private const string HistoryEntriesKey = "AppHistoryEntries";
-        private static ObservableCollection<HistoryEntry> history;
+        private static Dictionary<string, HistoryEntry> _history;
+
+        public static async Task<Dictionary<string, HistoryEntry>> InitializedAsync()
+        {
+            var historyEntries = await ReadAsync();
+
+            _history = new Dictionary<string, HistoryEntry>();
+            if (historyEntries != null)
+            {
+                foreach (var item in historyEntries)
+                {
+                    if (!_history.ContainsKey(item.Text))
+                        _history.Add(item.Text, item);
+                }
+            }
+
+            return _history;
+        }
 
         public static async Task<IEnumerable<HistoryEntry>> ReadAsync()
         {
@@ -19,23 +36,47 @@ namespace LeagueHashes.Services
         }
         public static async Task SaveAsync()
         {
-            await ApplicationData.Current.LocalCacheFolder.SaveAsync(HistoryFileName, history);
+            await ApplicationData.Current.LocalCacheFolder.SaveAsync(HistoryFileName, _history.Values);
         }
 
-        public static void AddHistory(HistoryEntry historyEntry)
-        {
-            history.Add(historyEntry);
-        }
-        public static async Task<ObservableCollection<HistoryEntry>> InitializedAsync()
-        {
-            var history = await ReadAsync();
-            if (history != null)
-                HistoryService.history = new ObservableCollection<HistoryEntry>(history);
-            else
-                HistoryService.history = new ObservableCollection<HistoryEntry>();
 
-            return HistoryService.history;
+        public static async void AddHistory(HistoryEntry historyEntry)
+        {
+            if (_history.ContainsKey(historyEntry.Text))
+                _history.Remove(historyEntry.Text);
+
+            _history.Add(historyEntry.Text, historyEntry);
+
+            await SaveAsync();
+            RaisePropertyChanged();
         }
+
+        public static async void RemoveHistory(IEnumerable<KeyValuePair<string, HistoryEntry>> historyEntries)
+        {
+            foreach (var historyEntry in historyEntries)
+            {
+                if (_history.ContainsKey(historyEntry.Key))
+                    _history.Remove(historyEntry.Key);
+            }
+
+            await SaveAsync();
+            RaisePropertyChanged();
+        }
+
+        public static async void ClearHistory()
+        {
+            _history.Clear();
+
+            await SaveAsync();
+            RaisePropertyChanged();
+        }
+
+        internal static void RaisePropertyChanged()
+        {
+            OnCollectionChanged?.Invoke(null, new EventArgs());
+        }
+
+        public static event EventHandler OnCollectionChanged;
     }
     public class HistoryEntry
     {

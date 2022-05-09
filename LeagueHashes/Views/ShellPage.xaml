@@ -2,6 +2,7 @@
     x:Class="LeagueHashes.Views.ShellPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Windows10version1903="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
     xmlns:behaviors="using:LeagueHashes.Behaviors"
     xmlns:converters="using:LeagueHashes.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,6 +10,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:services="using:LeagueHashes.Services"
     xmlns:views="using:LeagueHashes.Views"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
@@ -65,15 +67,19 @@
                     Icon="List"
                     Tapped="NavigationViewItem_Tapped">
                     <FlyoutBase.AttachedFlyout>
-                        <Flyout Placement="Bottom">
+                        <Flyout Windows10version1903:ShouldConstrainToRootBounds="False" Placement="Bottom">
                             <Grid>
-                                <Grid Visibility="{x:Bind ViewModel.HistoryViewVisibility, Mode=TwoWay}">
+                                <Grid x:Name="HistoryView" Visibility="{x:Bind ViewModel.HistoryViewVisibility, Mode=TwoWay}">
                                     <Grid.Transitions>
                                         <TransitionCollection>
                                             <EntranceThemeTransition />
                                         </TransitionCollection>
                                     </Grid.Transitions>
-                                    <ListView ItemsSource="{x:Bind ViewModel.History, Mode=TwoWay}" ScrollViewer.CanContentRenderOutsideBounds="True">
+                                    <ListView
+                                        x:Name="HistoryListView"
+                                        ItemsSource="{x:Bind ViewModel.History, Mode=TwoWay}"
+                                        ScrollViewer.CanContentRenderOutsideBounds="True"
+                                        SelectionMode="Extended">
                                         <ListView.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <ItemsStackPanel />
@@ -94,12 +100,11 @@
                                                         FontSize="16"
                                                         FontStretch="Undefined"
                                                         FontWeight="Bold"
-                                                        Text="{Binding Type}" />
+                                                        Text="{Binding Value.Type}" />
                                                     <TextBlock
                                                         Grid.Row="2"
                                                         Opacity="0.7"
-                                                        Text="{Binding Text}" />
-
+                                                        Text="{Binding Key}" />
                                                     <FlyoutBase.AttachedFlyout>
                                                         <MenuFlyout Placement="BottomEdgeAlignedRight">
                                                             <MenuFlyoutItem
@@ -110,14 +115,19 @@
                                                                 Click="Delete_Click"
                                                                 Icon="Delete"
                                                                 Text="Delete" />
+                                                            <MenuFlyoutSeparator />
+                                                            <MenuFlyoutItem
+                                                                Click="Clear_Click"
+                                                                Icon="Clear"
+                                                                Text="Clear" />
                                                         </MenuFlyout>
                                                     </FlyoutBase.AttachedFlyout>
                                                     <i:Interaction.Behaviors>
-                                                        <ic:DataTriggerBehavior Binding="{Binding HasColor}" Value="True">
+                                                        <ic:DataTriggerBehavior Binding="{Binding Value.HasColor}" Value="True">
                                                             <ic:ChangePropertyAction
                                                                 PropertyName="Foreground"
                                                                 TargetObject="{Binding ElementName=header}"
-                                                                Value="{Binding Color, Converter={StaticResource ColorToSolidBrushColorConverter}}" />
+                                                                Value="{Binding Value.Color, Converter={StaticResource ColorToSolidBrushColorConverter}}" />
                                                         </ic:DataTriggerBehavior>
                                                     </i:Interaction.Behaviors>
                                                 </Grid>
@@ -125,7 +135,7 @@
                                         </ListView.ItemTemplate>
                                     </ListView>
                                 </Grid>
-                                <Grid Visibility="{x:Bind ViewModel.NoHistoricalContentPromptsVisibility, Mode=TwoWay}">
+                                <Grid x:Name="NoHistoricalContentPrompts" Visibility="{x:Bind ViewModel.NoHistoricalContentPromptsVisibility, Mode=TwoWay}">
                                     <Grid.Transitions>
                                         <TransitionCollection>
                                             <EntranceThemeTransition />

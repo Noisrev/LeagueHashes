@@ -1,5 +1,8 @@
 ﻿using LeagueHashes.Services;
 using LeagueHashes.ViewModels;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,32 +26,60 @@ namespace LeagueHashes.Views
         {
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
+
         private void Grid_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
         {
+            /** I tried to determine the SelectedItems of the ListView by binding,
+             *  but I couldn't bind it, nor could I get elements in the DataTemplate via ElementName.
+             *  Why does UWP not have this capability?
+             *  So I have to do this in the CS file
+             *  Maybe!?
+             */
+            var menuFlyout = (MenuFlyout)FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
+            var copyMenuItem    = menuFlyout.Items[0];
+            var deleteMenuItem  = menuFlyout.Items[1];
+            var clearMenuItem   = menuFlyout.Items[3];
+
+            copyMenuItem.IsEnabled = deleteMenuItem.IsEnabled = HistoryListView.SelectedItems.Any();
+            clearMenuItem.IsEnabled = HistoryListView.Items.Any();
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
+
         private void Copy_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (sender is MenuFlyoutItem item && item.DataContext is HistoryEntry historyEntry)
+            if (HistoryListView.SelectedItems.Any())
             {
-                Copy(historyEntry);
+                CoerceCopy(HistoryListView.SelectedItems.Cast<KeyValuePair<string, HistoryEntry>>());
             }
         }
-        private void Copy(HistoryEntry historyEntry)
+
+        private void Delete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (HistoryListView.SelectedItems.Any())
+            {
+                ViewModel.RemoveHistory(HistoryListView.SelectedItems.Cast<KeyValuePair<string, HistoryEntry>>());
+            }
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ClearAllHistory();
+        }
+
+
+        private void CoerceCopy(IEnumerable<KeyValuePair<string, HistoryEntry>> historyEntries)
         {
             DataPackage dataPackage = new DataPackage
             {
                 RequestedOperation = DataPackageOperation.Copy
             };
-            dataPackage.SetText(historyEntry.Text);
+
+            string finalString = string.Empty;
+            foreach (var entry in historyEntries)
+                finalString += entry.Key + "\n";
+
+            dataPackage.SetText(finalString);
             Clipboard.SetContent(dataPackage);
-        }
-        private void Delete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            if (sender is MenuFlyoutItem item && item.DataContext is HistoryEntry historyEntry)
-            {
-                ViewModel.RemoveHistory(historyEntry);
-            }
         }
     }
 }

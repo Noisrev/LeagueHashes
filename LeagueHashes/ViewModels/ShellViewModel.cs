@@ -5,9 +5,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -20,12 +18,11 @@ namespace LeagueHashes.ViewModels
 {
     public class ShellViewModel : ObservableObject
     {
-        public ObservableCollection<HistoryEntry> History
+        public Dictionary<string, HistoryEntry> History
         {
-            get => __history;
-            set => SetProperty(ref __history, value, nameof(History));
+            get => _history;
+            set => SetProperty(ref _history, value, nameof(History));
         }
-        private ObservableCollection<HistoryEntry> __history;
         public Visibility HistoryViewVisibility
         {
             get => __historyViewVisibility;
@@ -44,6 +41,7 @@ namespace LeagueHashes.ViewModels
         private readonly KeyboardAccelerator _backKeyboardAccelerator = BuildKeyboardAccelerator(VirtualKey.GoBack);
 
         private bool _isBackEnabled;
+        private Dictionary<string, HistoryEntry> _history;
         private IList<KeyboardAccelerator> _keyboardAccelerators;
         private WinUI.NavigationView _navigationView;
         private WinUI.NavigationViewItem _selected;
@@ -53,7 +51,7 @@ namespace LeagueHashes.ViewModels
         public bool IsBackEnabled
         {
             get => _isBackEnabled;
-            set => SetProperty(ref _isBackEnabled, value);
+            set => SetProperty(ref _isBackEnabled, value, nameof(IsBackEnabled));
         }
 
         public WinUI.NavigationViewItem Selected
@@ -72,12 +70,19 @@ namespace LeagueHashes.ViewModels
 
         public void Initialize(Frame frame, WinUI.NavigationView navigationView, IList<KeyboardAccelerator> keyboardAccelerators)
         {
-            _navigationView = navigationView;
             _keyboardAccelerators = keyboardAccelerators;
+            _navigationView = navigationView;
+            _navigationView.BackRequested += OnBackRequested;
             NavigationService.Frame = frame;
             NavigationService.NavigationFailed += Frame_NavigationFailed;
             NavigationService.Navigated += Frame_Navigated;
-            _navigationView.BackRequested += OnBackRequested;
+            HistoryService.OnCollectionChanged += (_, e) =>
+            {
+                var bak = History;
+                History = null;
+                History = bak;
+                VerifyAndUpdateHistoryView();
+            };
         }
 
         private async void OnLoaded()
@@ -88,9 +93,7 @@ namespace LeagueHashes.ViewModels
             _keyboardAccelerators.Add(_backKeyboardAccelerator);
 
             History = await HistoryService.InitializedAsync();
-            History.CollectionChanged += History_CollectionChanged;
             VerifyAndUpdateHistoryView();
-            await Task.CompletedTask;
         }
 
         private void OnItemInvoked(WinUI.NavigationViewItemInvokedEventArgs args)
@@ -180,13 +183,6 @@ namespace LeagueHashes.ViewModels
             args.Handled = result;
         }
 
-        private async void History_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            VerifyAndUpdateHistoryView();
-
-            await HistoryService.SaveAsync();
-        }
-
         private void VerifyAndUpdateHistoryView()
         {
             if (History.Count > 0)
@@ -201,10 +197,14 @@ namespace LeagueHashes.ViewModels
             }
         }
 
-        public void RemoveHistory(HistoryEntry entry)
+        public void RemoveHistory(IEnumerable<KeyValuePair<string, HistoryEntry>> entries)
         {
-            History.Remove(entry);
-            VerifyAndUpdateHistoryView();
+            HistoryService.RemoveHistory(entries);
+        }
+
+        public void ClearAllHistory()
+        {
+            HistoryService.ClearHistory();
         }
     }
 }

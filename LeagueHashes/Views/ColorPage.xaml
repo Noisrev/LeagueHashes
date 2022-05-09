@@ -20,20 +20,6 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="Color" />
-        <AppBarButton
-            Width="90"
-            Margin="4,2"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Click="Submit_Click"
-            Icon="Add"
-            Label="Add to History">
-            <AppBarButton.Transitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition />
-                </TransitionCollection>
-            </AppBarButton.Transitions>
-        </AppBarButton>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" />
@@ -128,11 +114,33 @@
                                     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Visible" />
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
-                            <winui:ColorPicker
-                                ColorSpectrumShape="Ring"
-                                IsAlphaEnabled="True"
-                                Orientation="Vertical"
-                                Color="{x:Bind ViewModel.AutoColor, Mode=TwoWay}" />
+                            <Grid>
+                                <winui:ColorPicker
+                                    ColorSpectrumShape="Ring"
+                                    IsAlphaEnabled="True"
+                                    Orientation="Vertical"
+                                    Color="{x:Bind ViewModel.AutoColor, Mode=TwoWay}" />
+                                <Button
+                                    Width="32"
+                                    Height="32"
+                                    Margin="0,0,0,16"
+                                    Padding="0,0,0,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Click="Submit_Click">
+                                    <Button.Content>
+                                        <FontIcon FontSize="16" Glyph="&#xE710;" />
+                                    </Button.Content>
+                                    <Button.Transitions>
+                                        <TransitionCollection>
+                                            <EntranceThemeTransition />
+                                        </TransitionCollection>
+                                    </Button.Transitions>
+                                    <ToolTipService.ToolTip>
+                                        <ToolTip Content="Add To History" />
+                                    </ToolTipService.ToolTip>
+                                </Button>
+                            </Grid>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                 </Grid>
