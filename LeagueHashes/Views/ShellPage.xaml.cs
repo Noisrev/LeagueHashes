@@ -1,7 +1,6 @@
 ﻿using LeagueHashes.Services;
 using LeagueHashes.ViewModels;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
@@ -36,9 +35,9 @@ namespace LeagueHashes.Views
              *  Maybe!?
              */
             var menuFlyout = (MenuFlyout)FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
-            var copyMenuItem    = menuFlyout.Items[0];
-            var deleteMenuItem  = menuFlyout.Items[1];
-            var clearMenuItem   = menuFlyout.Items[3];
+            var copyMenuItem = menuFlyout.Items[0];
+            var deleteMenuItem = menuFlyout.Items[1];
+            var clearMenuItem = menuFlyout.Items[3];
 
             copyMenuItem.IsEnabled = deleteMenuItem.IsEnabled = HistoryListView.SelectedItems.Any();
             clearMenuItem.IsEnabled = HistoryListView.Items.Any();

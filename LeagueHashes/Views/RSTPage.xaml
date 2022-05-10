@@ -2,7 +2,9 @@
     x:Class="LeagueHashes.Views.RSTPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:LeagueHashes.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea">
@@ -47,7 +49,11 @@
                 <TextBox
                     Grid.Column="0"
                     PlaceholderText="Offset"
-                    Text="{x:Bind ViewModel.Offset, Mode=TwoWay}" />
+                    Text="{x:Bind ViewModel.Offset, Mode=TwoWay}">
+                    <i:Interaction.Behaviors>
+                        <behaviors:KeyboardNavigationBehavior Key="Enter" TargetObject="{x:Bind InputTextBox}" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
                 <ComboBox
                     Grid.Column="2"
                     ItemsSource="{x:Bind ViewModel.Bits}"
@@ -55,6 +61,7 @@
                     SelectedItem="{x:Bind ViewModel.Bit, Mode=TwoWay}" />
             </Grid>
             <TextBox
+                x:Name="InputTextBox"
                 Grid.Row="3"
                 Grid.Column="1"
                 PlaceholderText="Enter the string you want to evaluate here."
@@ -68,6 +75,7 @@
             <TextBox
                 Grid.Row="7"
                 Grid.Column="1"
+                IsReadOnly="True"
                 PlaceholderText="The output will be displayed here."
                 Text="{x:Bind ViewModel.Output, Mode=OneWay}" />
             <CheckBox

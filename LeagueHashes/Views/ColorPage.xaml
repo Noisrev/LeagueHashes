@@ -129,13 +129,8 @@
                                     VerticalAlignment="Bottom"
                                     Click="Submit_Click">
                                     <Button.Content>
-                                        <FontIcon FontSize="16" Glyph="&#xE710;" />
+                                        <FontIcon FontSize="12" Glyph="&#xE710;" />
                                     </Button.Content>
-                                    <Button.Transitions>
-                                        <TransitionCollection>
-                                            <EntranceThemeTransition />
-                                        </TransitionCollection>
-                                    </Button.Transitions>
                                     <ToolTipService.ToolTip>
                                         <ToolTip Content="Add To History" />
                                     </ToolTipService.ToolTip>

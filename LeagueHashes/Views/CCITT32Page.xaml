@@ -42,6 +42,7 @@
             <TextBox
                 Grid.Row="5"
                 Grid.Column="1"
+                IsReadOnly="True"
                 PlaceholderText="The output will be displayed here."
                 Text="{x:Bind ViewModel.Output, Mode=OneWay}" />
             <CheckBox
