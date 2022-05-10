@@ -10,7 +10,7 @@
             Margin="15"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="Fnv32a" />
+            Text="Fnv1a" />
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
