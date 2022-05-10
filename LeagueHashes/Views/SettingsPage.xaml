@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:navigation="using:Windows.UI.Xaml.Navigation"
-    xmlns:services="using:LeagueHashes.Services"
     xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
     <Page.Resources>
@@ -27,7 +26,7 @@
                             Command="{x:Bind ViewModel.SwitchNavigationCacheModeCommand}"
                             FontSize="15"
                             GroupName="NavigationCacheMode"
-                            IsChecked="{x:Bind services:SettingsService.Instance.NavigationCacheMode, Converter={StaticResource NavigationCacheModeConverter}, ConverterParameter=Disabled, Mode=OneWay}">
+                            IsChecked="{x:Bind ViewModel.NavigationCacheMode, Converter={StaticResource NavigationCacheModeConverter}, ConverterParameter=Disabled, Mode=OneWay}">
                             <RadioButton.CommandParameter>
                                 <navigation:NavigationCacheMode>Disabled</navigation:NavigationCacheMode>
                             </RadioButton.CommandParameter>
@@ -37,7 +36,7 @@
                             Command="{x:Bind ViewModel.SwitchNavigationCacheModeCommand}"
                             FontSize="15"
                             GroupName="NavigationCacheMode"
-                            IsChecked="{x:Bind services:SettingsService.Instance.NavigationCacheMode, Converter={StaticResource NavigationCacheModeConverter}, ConverterParameter=Enabled, Mode=OneWay}">
+                            IsChecked="{x:Bind ViewModel.NavigationCacheMode, Converter={StaticResource NavigationCacheModeConverter}, ConverterParameter=Enabled, Mode=OneWay}">
                             <RadioButton.CommandParameter>
                                 <navigation:NavigationCacheMode>Enabled</navigation:NavigationCacheMode>
                             </RadioButton.CommandParameter>
@@ -47,7 +46,7 @@
                             Command="{x:Bind ViewModel.SwitchNavigationCacheModeCommand}"
                             FontSize="15"
                             GroupName="NavigationCacheMode"
-                            IsChecked="{x:Bind services:SettingsService.Instance.NavigationCacheMode, Converter={StaticResource NavigationCacheModeConverter}, ConverterParameter=Required, Mode=OneWay}">
+                            IsChecked="{x:Bind ViewModel.NavigationCacheMode, Converter={StaticResource NavigationCacheModeConverter}, ConverterParameter=Required, Mode=OneWay}">
                             <RadioButton.CommandParameter>
                                 <navigation:NavigationCacheMode>Required</navigation:NavigationCacheMode>
                             </RadioButton.CommandParameter>

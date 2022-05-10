@@ -8,6 +8,7 @@ namespace LeagueHashes.Services
     public class SettingsService
     {
         private const string NavigationCacheModeKey = "NavigationCacheMode";
+        private static SettingsService instance;
 
         public static SettingsService Instance
         {
@@ -18,10 +19,8 @@ namespace LeagueHashes.Services
                 return instance;
             }
         }
-        private static SettingsService instance;
 
         public NavigationCacheMode NavigationCacheMode { get; set; }
-
 
         public SettingsService()
         {
