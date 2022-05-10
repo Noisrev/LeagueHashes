@@ -14,6 +14,7 @@ namespace LeagueHashes.Views
         public CCITT32Page()
         {
             InitializeComponent();
+            NavigationCacheMode = Services.SettingsService.Instance.NavigationCacheMode;
         }
     }
 }

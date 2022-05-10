@@ -165,6 +165,7 @@
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\HistoryService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="ViewModels\CCITT32ViewModel.cs" />
     <Compile Include="ViewModels\Fnv32aViewModel.cs" />

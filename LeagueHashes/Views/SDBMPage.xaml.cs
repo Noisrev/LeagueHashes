@@ -14,6 +14,7 @@ namespace LeagueHashes.Views
         public SDBMPage()
         {
             InitializeComponent();
+            NavigationCacheMode = Services.SettingsService.Instance.NavigationCacheMode;
         }
     }
 }

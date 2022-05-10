@@ -10,6 +10,7 @@ namespace LeagueHashes.Views
         public XXHash64Page()
         {
             InitializeComponent();
+            NavigationCacheMode = Services.SettingsService.Instance.NavigationCacheMode;
         }
     }
 }

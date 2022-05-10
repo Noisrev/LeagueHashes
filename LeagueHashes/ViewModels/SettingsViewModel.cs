@@ -2,10 +2,14 @@
 using LeagueHashes.Services;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace LeagueHashes.ViewModels
 {
@@ -47,6 +51,44 @@ namespace LeagueHashes.ViewModels
                 }
 
                 return _switchThemeCommand;
+            }
+        }
+
+        private bool _valueHasBeenChanged;
+        private ICommand _switchNavigationCacheModeCommand;
+
+        public ICommand SwitchNavigationCacheModeCommand
+        {
+            get
+            {
+                if (_switchNavigationCacheModeCommand == null)
+                {
+                    _switchNavigationCacheModeCommand = new RelayCommand<NavigationCacheMode>(
+                        async (param) =>
+                        {
+                            await SettingsService.Instance.SetNavigationCacheModeAsync(param);
+                            if (!_valueHasBeenChanged)
+                            {
+                                _valueHasBeenChanged = true;
+                                ContentDialog contentDialog = new ContentDialog()
+                                {
+                                    Title = "Restart to apply the change",
+                                    Content = "You need to restart the application to apply the change.",
+                                    PrimaryButtonText = "Restart",
+                                    CloseButtonText = "Cancel",
+                                    DefaultButton = ContentDialogButton.Primary
+                                };
+
+                                var result = await contentDialog.ShowAsync();
+                                if (result == ContentDialogResult.Primary)
+                                {
+                                    await CoreApplication.RequestRestartAsync(string.Empty);
+                                }
+                            }
+                        });
+                }
+
+                return _switchNavigationCacheModeCommand;
             }
         }
 

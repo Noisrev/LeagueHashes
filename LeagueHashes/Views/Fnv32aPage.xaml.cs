@@ -14,6 +14,7 @@ namespace LeagueHashes.Views
         public Fnv32aPage()
         {
             InitializeComponent();
+            NavigationCacheMode = Services.SettingsService.Instance.NavigationCacheMode;
         }
     }
 }

@@ -201,4 +201,24 @@
     <value>XXHash64</value>
     <comment>Navigation view item name for XXHash64</comment>
   </data>
+  <data name="Settings_NavigationCache.Text" xml:space="preserve">
+    <value>Choose Navigation Cache Mode</value>
+    <comment>Choose navigation cache mode text for Settings</comment>
+  </data>
+  <data name="Settings_NavigationCacheMode_Disabled.Content" xml:space="preserve">
+    <value>Disabled</value>
+    <comment>Disabled mode text for Settings</comment>
+  </data>
+  <data name="Settings_NavigationCacheMode_Enabled.Content" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>Enabled mode text for Settings</comment>
+  </data>
+  <data name="Settings_NavigationCacheMode_Required.Content" xml:space="preserve">
+    <value>Required</value>
+    <comment>Required mode text for Settings</comment>
+  </data>
+  <data name="Settings_NavigationCacheSettings.Text" xml:space="preserve">
+    <value>Navigation</value>
+    <comment>Navigation text for Settings</comment>
+  </data>
 </root>
