@@ -12,6 +12,7 @@ namespace LeagueHashes.Views
         public ELFPage()
         {
             InitializeComponent();
+            NavigationCacheMode = Services.SettingsService.Instance.NavigationCacheMode;
         }
     }
 }

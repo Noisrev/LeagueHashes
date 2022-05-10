@@ -20,25 +20,11 @@ namespace LeagueHashes.ViewModels
             ulong hash = XXHash.XXH64(Encoding.UTF8.GetBytes(s));
             Submit(s, hash);
         }
-        public override void OnChangedText()
-        {
-            if (IsHex)
-            {
-                Output = Output_Hex;
-            }
-            else
-            {
-                Output = Output_Dec;
-            }
-        }
 
         public override void Submit(string key, ulong value)
         {
             Hash = value;
-            Output_Dec = Hash.ToString();
-            Output_Hex = Hash.ToString("X");
-            OnChangedText();
-            HistoryService.AddHistory(new HistoryEntry(HistoryType.XXHash64, $"{key} {(IsHex ? Output_Hex : Output_Dec)}"));
+            HistoryService.AddHistory(new HistoryEntry(HistoryType.XXHash64, $"{key} {Output}"));
         }
     }
 }

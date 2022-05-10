@@ -5,15 +5,56 @@
     xmlns:converters="using:LeagueHashes.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:navigation="using:Windows.UI.Xaml.Navigation"
+    xmlns:services="using:LeagueHashes.Services"
     xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
+        <converters:EnumToBooleanConverter x:Key="ElementThemeConverter" EnumType="ElementTheme" />
+        <converters:EnumToBooleanConverter x:Key="NavigationCacheModeConverter" EnumType="navigation:NavigationCacheMode" />
     </Page.Resources>
 
     <ScrollViewer>
         <Grid Margin="{StaticResource MediumLeftRightMargin}">
             <StackPanel x:Name="ContentArea">
+                <TextBlock x:Uid="Settings_NavigationCacheSettings" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                    <TextBlock x:Uid="Settings_NavigationCache" />
+
+                    <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                        <RadioButton
+                            x:Uid="Settings_NavigationCacheMode_Disabled"
+                            Command="{x:Bind ViewModel.SwitchNavigationCacheModeCommand}"
+                            FontSize="15"
+                            GroupName="NavigationCacheMode"
+                            IsChecked="{x:Bind services:SettingsService.Instance.NavigationCacheMode, Converter={StaticResource NavigationCacheModeConverter}, ConverterParameter=Disabled, Mode=OneWay}">
+                            <RadioButton.CommandParameter>
+                                <navigation:NavigationCacheMode>Disabled</navigation:NavigationCacheMode>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            x:Uid="Settings_NavigationCacheMode_Enabled"
+                            Command="{x:Bind ViewModel.SwitchNavigationCacheModeCommand}"
+                            FontSize="15"
+                            GroupName="NavigationCacheMode"
+                            IsChecked="{x:Bind services:SettingsService.Instance.NavigationCacheMode, Converter={StaticResource NavigationCacheModeConverter}, ConverterParameter=Enabled, Mode=OneWay}">
+                            <RadioButton.CommandParameter>
+                                <navigation:NavigationCacheMode>Enabled</navigation:NavigationCacheMode>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            x:Uid="Settings_NavigationCacheMode_Required"
+                            Command="{x:Bind ViewModel.SwitchNavigationCacheModeCommand}"
+                            FontSize="15"
+                            GroupName="NavigationCacheMode"
+                            IsChecked="{x:Bind services:SettingsService.Instance.NavigationCacheMode, Converter={StaticResource NavigationCacheModeConverter}, ConverterParameter=Required, Mode=OneWay}">
+                            <RadioButton.CommandParameter>
+                                <navigation:NavigationCacheMode>Required</navigation:NavigationCacheMode>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                    </StackPanel>
+                </StackPanel>
+
                 <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
                 <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                     <TextBlock x:Uid="Settings_Theme" />
@@ -24,7 +65,7 @@
                             Command="{x:Bind ViewModel.SwitchThemeCommand}"
                             FontSize="15"
                             GroupName="AppTheme"
-                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}">
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource ElementThemeConverter}, ConverterParameter=Light, Mode=OneWay}">
                             <RadioButton.CommandParameter>
                                 <xaml:ElementTheme>Light</xaml:ElementTheme>
                             </RadioButton.CommandParameter>
@@ -34,7 +75,7 @@
                             Command="{x:Bind ViewModel.SwitchThemeCommand}"
                             FontSize="15"
                             GroupName="AppTheme"
-                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}">
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource ElementThemeConverter}, ConverterParameter=Dark, Mode=OneWay}">
                             <RadioButton.CommandParameter>
                                 <xaml:ElementTheme>Dark</xaml:ElementTheme>
                             </RadioButton.CommandParameter>
@@ -44,7 +85,7 @@
                             Command="{x:Bind ViewModel.SwitchThemeCommand}"
                             FontSize="15"
                             GroupName="AppTheme"
-                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}">
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource ElementThemeConverter}, ConverterParameter=Default, Mode=OneWay}">
                             <RadioButton.CommandParameter>
                                 <xaml:ElementTheme>Default</xaml:ElementTheme>
                             </RadioButton.CommandParameter>
@@ -53,7 +94,6 @@
                 </StackPanel>
 
                 <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
-
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
                     <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />
                     <TextBlock

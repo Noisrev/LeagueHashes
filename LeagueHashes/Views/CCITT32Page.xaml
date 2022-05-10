@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:LeagueHashes.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:service="using:LeagueHashes.Services"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea">
         <TextBlock
@@ -42,6 +43,7 @@
             <TextBox
                 Grid.Row="5"
                 Grid.Column="1"
+                IsReadOnly="True"
                 PlaceholderText="The output will be displayed here."
                 Text="{x:Bind ViewModel.Output, Mode=OneWay}" />
             <CheckBox

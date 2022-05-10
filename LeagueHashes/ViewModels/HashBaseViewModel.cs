@@ -1,19 +1,27 @@
 ﻿using LeagueHashes.Interfaces;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using System;
 using System.Windows.Input;
 
 namespace LeagueHashes.ViewModels
 {
-    public abstract class HashBaseViewModel<TKey, TValue> : ObservableObject, IHashBase where TValue : struct
+    public abstract class HashBaseViewModel<TKey, TValue> : ObservableObject, IHashBase where TValue : IComparable, IComparable<TValue>, IConvertible, IEquatable<TValue>, IFormattable
     {
         public bool IsHex
         {
             get => __isHex;
             set
             {
+                if (value)
+                {
+                    Output = Output_Hex;
+                }
+                else
+                {
+                    Output = Output_Dec;
+                }
                 SetProperty(ref __isHex, value, nameof(IsHex));
-                OnChangedText();
             }
         }
         public bool ToLower
@@ -29,7 +37,38 @@ namespace LeagueHashes.ViewModels
         public TValue Hash
         {
             get => __hash;
-            set => SetProperty(ref __hash, value);
+            set
+            {
+                if (__hash.CompareTo(value) == 0) return;
+
+                Output_Dec = value.ToString();
+
+                string formatString;
+                switch (Type.GetTypeCode(typeof(TValue)))
+                {
+                    case TypeCode.Byte:
+                    case TypeCode.SByte:
+                        formatString = "0x{0:X2}";
+                        break;
+                    case TypeCode.Int16:
+                    case TypeCode.UInt16:
+                        formatString = "0x{0:X4}";
+                        break;
+                    case TypeCode.Int32:
+                    case TypeCode.UInt32:
+                        formatString = "0x{0:X8}";
+                        break;
+                    case TypeCode.Int64:
+                    case TypeCode.UInt64:
+                        formatString = "0x{0:X16}";
+                        break;
+                    default: throw new InvalidOperationException();
+                }
+                Output_Hex = string.Format(formatString, value);
+
+                Output = IsHex ? Output_Hex : Output_Dec;
+                SetProperty(ref __hash, value);
+            }
         }
         public string Output
         {
@@ -46,7 +85,7 @@ namespace LeagueHashes.ViewModels
             get => __output_Hex;
             set => SetProperty(ref __output_Hex, value);
         }
-        public ICommand OnComputedHash => __onComputedHash;
+        public ICommand OnComputedHash { get; }
 
         private bool __isHex;
         private bool __toLower;
@@ -56,15 +95,13 @@ namespace LeagueHashes.ViewModels
         private string __output_Dec;
         private string __output_Hex;
 
-        private readonly RelayCommand __onComputedHash;
         public HashBaseViewModel()
         {
-            __onComputedHash = new RelayCommand(ComputedHash);
+            OnComputedHash = new RelayCommand(ComputedHash);
         }
 
         public abstract void Submit(TKey key, TValue value);
-        public abstract void ComputedHash();
-        public abstract void OnChangedText();
 
+        public abstract void ComputedHash();
     }
 }

@@ -1,7 +1,6 @@
 ﻿using LeagueHashes.Helpers;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI;

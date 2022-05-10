@@ -11,6 +11,7 @@ namespace LeagueHashes.Views
         public RSTPage()
         {
             InitializeComponent();
+            NavigationCacheMode = Services.SettingsService.Instance.NavigationCacheMode;
         }
     }
 }

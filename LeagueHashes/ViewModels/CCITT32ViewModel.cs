@@ -89,25 +89,11 @@ namespace LeagueHashes.ViewModels
             }
             Submit(Input, crc);
         }
-        public override void OnChangedText()
-        {
-            if (IsHex)
-            {
-                Output = Output_Hex;
-            }
-            else
-            {
-                Output = Output_Dec;
-            }
-        }
 
         public override void Submit(string key, long value)
         {
             Hash = value;
-            Output_Dec = Hash.ToString();
-            Output_Hex = Hash.ToString("X");
-            OnChangedText();
-            HistoryService.AddHistory(new HistoryEntry(HistoryType.CCITT32, $"{key} {(IsHex ? Output_Hex : Output_Dec)}"));
+            HistoryService.AddHistory(new HistoryEntry(HistoryType.CCITT32, $"{key} {Output}"));
         }
     }
 }

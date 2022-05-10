@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:LeagueHashes.ViewModels"
+    xmlns:service="using:LeagueHashes.Services"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
     <Page.Resources>
@@ -129,13 +130,8 @@
                                     VerticalAlignment="Bottom"
                                     Click="Submit_Click">
                                     <Button.Content>
-                                        <FontIcon FontSize="16" Glyph="&#xE710;" />
+                                        <FontIcon FontSize="12" Glyph="&#xE710;" />
                                     </Button.Content>
-                                    <Button.Transitions>
-                                        <TransitionCollection>
-                                            <EntranceThemeTransition />
-                                        </TransitionCollection>
-                                    </Button.Transitions>
                                     <ToolTipService.ToolTip>
                                         <ToolTip Content="Add To History" />
                                     </ToolTipService.ToolTip>

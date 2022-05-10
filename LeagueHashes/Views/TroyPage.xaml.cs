@@ -12,6 +12,7 @@ namespace LeagueHashes.Views
         public TroyPage()
         {
             InitializeComponent();
+            NavigationCacheMode = Services.SettingsService.Instance.NavigationCacheMode;
         }
     }
 }

@@ -170,12 +170,12 @@
     <comment>Navigation view item name for CCITT32</comment>
   </data>
   <data name="Shell_Fnv32.Content" xml:space="preserve">
-    <value>Fnv32</value>
-    <comment>Navigation view item name for Fnv32</comment>
+    <value>Fnv1</value>
+    <comment>Navigation view item name for Fnv1</comment>
   </data>
   <data name="Shell_Fnv32a.Content" xml:space="preserve">
-    <value>Fnv32a</value>
-    <comment>Navigation view item name for Fnv32a</comment>
+    <value>Fnv1a</value>
+    <comment>Navigation view item name for Fnv1a</comment>
   </data>
   <data name="Shell_ELF.Content" xml:space="preserve">
     <value>ELF</value>
@@ -200,5 +200,25 @@
   <data name="Shell_XXHash64.Content" xml:space="preserve">
     <value>XXHash64</value>
     <comment>Navigation view item name for XXHash64</comment>
+  </data>
+  <data name="Settings_NavigationCache.Text" xml:space="preserve">
+    <value>Choose Navigation Cache Mode</value>
+    <comment>Choose navigation cache mode text for Settings</comment>
+  </data>
+  <data name="Settings_NavigationCacheMode_Disabled.Content" xml:space="preserve">
+    <value>Disabled</value>
+    <comment>Disabled mode text for Settings</comment>
+  </data>
+  <data name="Settings_NavigationCacheMode_Enabled.Content" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>Enabled mode text for Settings</comment>
+  </data>
+  <data name="Settings_NavigationCacheMode_Required.Content" xml:space="preserve">
+    <value>Required</value>
+    <comment>Required mode text for Settings</comment>
+  </data>
+  <data name="Settings_NavigationCacheSettings.Text" xml:space="preserve">
+    <value>Navigation</value>
+    <comment>Navigation text for Settings</comment>
   </data>
 </root>

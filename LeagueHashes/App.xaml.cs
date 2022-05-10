@@ -28,6 +28,7 @@ namespace LeagueHashes
         {
             if (!args.PrelaunchActivated)
             {
+                await SettingsService.Instance.InitializedAsync();
                 await ActivationService.ActivateAsync(args);
                 ExtendIntoTitleBar();
             }
